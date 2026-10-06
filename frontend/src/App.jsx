@@ -10,8 +10,17 @@ export default function App() {
   const [page, setPage] = useState(1);
 
   const { tasks, total, loading, error } = useTasks(query, status, page, 10);
-
   const totalPages = Math.ceil(total / 10);
+
+  function handleQueryChange(value) {
+    setPage(1);
+    setQuery(value);
+  }
+
+  function handleStatusChange(value) {
+    setPage(1);
+    setStatus(value);
+  }
 
   return (
     <div className="app">
@@ -21,8 +30,8 @@ export default function App() {
       </header>
 
       <div className="controls">
-        <SearchBar value={query} onChange={setQuery} />
-        <StatusFilter value={status} onChange={setStatus} />
+        <SearchBar value={query} onChange={handleQueryChange} />
+        <StatusFilter value={status} onChange={handleStatusChange} />
       </div>
 
       <TaskTable tasks={tasks} loading={loading} error={error} />
